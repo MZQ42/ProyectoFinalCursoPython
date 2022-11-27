@@ -5,9 +5,9 @@ import math
 root = Tk()
 root.title("Calculadora Científica")
 root.configure(background = 'white')
-#root.iconbitmap('C:/Users/danuo/Desktop/Calculadora/logoudea.ico')
+root.iconbitmap('C:/Users/manuz/Documents/Proyecto Final Curso Python/logoudea.ico')
 root.resizable(width=False, height=False)
-root.geometry("517x572+750+290")
+root.geometry("460x500")
 calc = Frame(root)
 calc.config(cursor='hand2')
 
@@ -74,7 +74,7 @@ class Calc():
  
     def Clear_Entry(self):
         self.result = False
-        self.current = "0"
+        self.current = ""
         self.display(0)
         self.input_value = True
  
