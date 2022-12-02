@@ -54,8 +54,11 @@ class Calc():
         if self.op == "multi":
             self.total *= self.current
         if self.op == "divide":
-            self.total /= self.current
-        if self.op =="\u005e":
+            try:
+                self.total /= self.current
+            except ZeroDivisionError:
+                self.total = "Error: Zero Division"
+        if self.op == "\u005e":
             self.total **=self.current
         self.input_value = True
         self.check_sum = False
@@ -98,9 +101,13 @@ class Calc():
         self.display(self.current)
  
     def squared(self):
-        self.result = False
-        self.current = math.sqrt(float(txtDisplay.get()))
-        self.display(self.current)
+        try:
+            self.result = False
+            self.current = math.sqrt(float(txtDisplay.get()))
+            self.display(self.current)
+        except ValueError:
+            self.display("Error: Negative Squared")
+        
  
     def cos(self):
         self.result = False
@@ -118,20 +125,25 @@ class Calc():
         self.display(self.current)
  
     def log(self):
-        self.result = False
-        self.current = math.log10(float(txtDisplay.get()))
-        self.display(self.current)
+        try:
+            self.result = False
+            self.current = math.log10(float(txtDisplay.get()))
+            self.display(self.current)
+        except ValueError:
+            self.display("Error: Undefined Log")
 
     def ln(self):
-        self.result = False
-        self.current = math.log(float(txtDisplay.get()))
-        self.display(self.current)
+        try:
+            self.result = False
+            self.current = math.log(float(txtDisplay.get()))
+            self.display(self.current)
+        except ValueError:
+            self.display("Error: Undefined Ln")
  
     def exp(self):
         self.result = False
         self.current = math.exp(float(txtDisplay.get()))
         self.display(self.current)
- 
 
  
 
@@ -189,7 +201,7 @@ btnClear = Button(calc, text=chr(67),
 				bd=10,
 				command=added_value.Clear_Entry).grid(row=1, column=0, pady=1)
 
-btnAllClear = Button(calc, text=chr(67)+chr(69),
+btnAllClear = Button(calc, text=chr(65)+chr(67),
 					width=3, height=1,
 					bg='cyan3',
 					font=('Helvetica',
@@ -244,11 +256,11 @@ btnPM = Button(calc, text=chr(177), width=3,
 			bd=10,
             command=added_value.mathPM).grid(row=5, column=2, pady=1)
 
-btnEquals = Button(calc, text="=", width=3,
+btnEquals = Button(calc, text="=", width=12,
 				height=1, bg='cyan3',
 				font=('Helvetica', 20, 'bold'),
 				bd=10,
-                command=added_value.sum_of_total).grid(row=5, column=3, pady=1)
+                command=added_value.sum_of_total).grid(row=5, column=3, columnspan=3, pady=1)
 
 btnPi = Button(calc, text="\u03c0", width=3,
 			height=1, bg='cyan3',
@@ -297,7 +309,9 @@ btnE = Button(calc, text="e", width=3,
 			height=1, bg='cyan3', 
 			font=('Helvetica', 20, 'bold'),
 			bd=10,
-            command=added_value.e).grid(row=5, column=4, pady=1)
+            command=added_value.e).grid(row=4, column=5, pady=1)
+
+#btnE.setStyleSheet("Button {border-radius:29.4px}")
 
 lblDisplay = Label(root, text="Calculadora Científica",
 				font=('Helvetica', 20),
